@@ -60,3 +60,24 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1  # Required for all-auth
+
+JAZZMIN_SETTINGS = {
+    "site_title": "My Custom Admin",
+    "site_header": "My Admin Panel",
+    "welcome_sign": "Welcome to My Admin Dashboard",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+    },
+    "custom_links": {
+        "users_management": [{
+            "name": "Add User",
+            "url": "add_user",
+            "icon": "fas fa-user-plus",
+            "permissions": ["users_management.add_usermanage"]
+        }],
+    },
+}

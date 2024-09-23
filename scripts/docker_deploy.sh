@@ -1,44 +1,30 @@
 #!/bin/bash
 
-# Function to run development commands
-run_dev() {
-    docker compose -f docker-compose.yml run --rm app python manage.py makemigrations
-    docker compose -f docker-compose.yml run --rm app python manage.py migrate
-    docker compose -f docker-compose.yml run --rm app python manage.py collectstatic --noinput
-    docker compose -f docker-compose.yml run --rm app python manage.py sample
-}
 
-# Function to run production commands
-run_prod() {
-    docker compose -f docker-compose.yml run --rm app python manage.py makemigrations
-    docker compose -f docker-compose.yml run --rm app python manage.py migrate
-    docker compose -f docker-compose.yml run --rm app python manage.py collectstatic --noinput
-    docker compose -f docker-compose.yml run --rm app python manage.py sample
-}
+# Ask user if they want to prune unused Docker objects before proceeding
+echo "Do you want to clean up unused Docker images, volumes, and networks before building and running services? (This cannot be undone)"
+echo "Enter 1 for YES, any other key for NO:"
+read user_input
 
-# Asking user for environment choice
-echo "Choose the environment to run: [dev/prod]"
-read environment
+docker compose down
 
-# Running commands based on the choice
-if [ "$environment" = "dev" ]; then
-    docker compose -f docker-compose.yml down
-    docker system prune -a --volumes
-    docker compose -f docker-compose.yml build
-    run_dev
-elif [ "$environment" = "prod" ]; then
-    docker compose -f docker-compose.yml down
-    docker system prune -a --volumes
-    docker compose -f docker-compose.yml build
-    run_prod
+if [ "$user_input" = "1" ]; then
+    echo "Running Docker system prune..."
+    docker system prune -a --volumes -f
 else
-    echo "Invalid input. Please type 'dev' or 'prod'."
-    exit 1
+    echo "Skipping Docker system prune."
 fi
 
-# Starting the containers
-if [ "$environment" = "dev" ]; then
-    docker compose -f docker-compose.yml up -d
-else
-    docker compose -f docker-compose.yml up -d
-fi
+
+
+# Build and run services defined in the first Docker Compose file
+echo "Building Docker images..."
+docker compose build
+
+docker compose run app python manage.py makemigrations
+docker compose run app python manage.py migrate
+docker compose run app python manage.py collectstatic --noinput
+docker compose run app python manage.py sample
+docker compose up -d
+
+echo "Services for docker-compose.yml have been started successfully."

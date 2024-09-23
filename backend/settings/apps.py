@@ -2,6 +2,7 @@
 from backend.settings import DEBUG
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -21,13 +22,8 @@ THIRD_PARTY_APPS = [
     "django.contrib.sites",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
     "dj_rest_auth",
     "dj_rest_auth.registration",
-    "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.twitter",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.github",
     "django_filters",
     "corsheaders",
     "django_celery_beat",
