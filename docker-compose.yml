@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:5-alpine
+    platform: linux/amd64
+    command: --port 6391
+    ports:
+      - "6391:6391"
+    expose:
+      - 6391
+    restart: always
+
+  app:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DJANGO_RUNNING_IN_DOCKER=True
+    depends_on:
+      - redis
+    command: uvicorn backend.asgi:application --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app/backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: always
+
+  celery_worker:
+    build: .
+    command: celery -A backend worker --loglevel=info
+    volumes:
+      - .:/app/celery
+    depends_on:
+      - dev_redis
+    restart: always
+
+  celery_beat:
+    build: .
+    command: celery -A backend beat --loglevel=info
+    volumes:
+      - .:/app/celery
+    depends_on:
+      - dev_redis
+    restart: always
+
+
