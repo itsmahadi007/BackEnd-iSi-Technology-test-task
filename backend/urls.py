@@ -43,17 +43,12 @@ urlpatterns = [
 if DEBUG:
     urlpatterns += [
         path("__debug__/", include("debug_toolbar.urls")),
-        re_path(
-            r"^api_doc_v2(?P<format>\.json|\.yaml)$",
-            schema_view.without_ui(cache_timeout=0),
-            name="schema-json",
-        ),
-        re_path(
+        path(
             r"api_doc_v2/",
             schema_view.with_ui("swagger", cache_timeout=0),
             name="schema-swagger-ui",
         ),
-        re_path(
+        path(
             r"api_doc_v1/",
             schema_view.with_ui("redoc", cache_timeout=0),
             name="schema-redoc",
@@ -62,7 +57,7 @@ if DEBUG:
 
 urlpatterns += [
     path("api/", include("apps.users_management.urls")),
-    # path("api/", include("apps.croud_founding.urls")),
+    path("api/", include("apps.simple_chat.urls")),
     path("api/", include("apps.authentication.urls")),
     path("api/", include("apps.notification_manager.urls")),
 ]

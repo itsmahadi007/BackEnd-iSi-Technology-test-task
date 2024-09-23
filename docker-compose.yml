@@ -35,7 +35,7 @@ services:
     volumes:
       - .:/app/celery
     depends_on:
-      - dev_redis
+      - redis
     restart: always
 
   celery_beat:
@@ -44,7 +44,7 @@ services:
     volumes:
       - .:/app/celery
     depends_on:
-      - dev_redis
+      - redis
     restart: always
 
 

@@ -5,9 +5,6 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from apps.authentication.views.social_logins.fb_login import FacebookLogin
-from apps.authentication.views.social_logins.google_login import GoogleLogin
-from apps.authentication.views.social_logins.twitter_login import TwitterLogin
 from apps.authentication.views.user_email_mobile_verification import (
     request_email_verification,
     request_phone_verification,
@@ -34,11 +31,4 @@ urlpatterns = [
     path("verify_email_token/", verify_email_otp),
     path("verify_phone_token/", verify_phone_otp),
     path("password-change/", PasswordChangeView.as_view(), name="rest_password_change"),
-    # Social login
-    path("social_facebook/", FacebookLogin.as_view(), name="fb_login"),
-    path("social_google/", GoogleLogin.as_view(), name="google_login"),
-    path("social_twitter/", TwitterLogin.as_view(), name="TwitterLogin"),
-    path("accounts/", include("allauth.urls")),
-    path("rest-auth/", include("dj_rest_auth.urls")),
-    path("rest-auth/register/", include("dj_rest_auth.registration.urls")),
 ]

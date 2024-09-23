@@ -49,26 +49,9 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "designation",
             "email",
-            "mobile",
-            "mobile_verified",
-            "whats_app_number",
-            "whats_app_verified",
-
             "profile_image",
             "profile_image_thumbnail",
-            "user_type",
 
-            "address",
-            "city",
-            "postal_code",
-            "country",
-            "last_login",
-            "date_joined",
-            "is_superuser",
-            "is_staff",
-            "is_active",
-
-            "request_to_verify"
         )
 
     def to_representation(self, instance):
@@ -114,10 +97,7 @@ class UserSerializerShort(serializers.ModelSerializer):
             "username",
             "first_name",
             "last_name",
-            "designation",
             "email",
-            "mobile",
-            "mobile_verified",
             "profile_image",
             "profile_image_thumbnail",
             "user_type",

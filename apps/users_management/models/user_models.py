@@ -57,7 +57,7 @@ class UserManage(AbstractUser):
     two_step_verification = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.username + " - " + self.email
+        return f" {self.id} - {self.username} - {self.email}"
 
     def get_profile_image(self):
         return self.profile_image.url
