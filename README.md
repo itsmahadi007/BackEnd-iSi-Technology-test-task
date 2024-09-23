@@ -9,6 +9,8 @@ This is a Django-based messaging API that provides the following key features:
 - Marking a message as read.
 - Retrieving the number of unread messages for a user.
 
+### I have used my own django starter project for this task. https://github.com/itsmahadi007/django-starter-4.2
+
 ## Local Setup
 
 ### 1. Create and activate a virtual environment:
