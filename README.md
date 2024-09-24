@@ -69,7 +69,8 @@ docker compose up -d
 ```
 
 ## API Documentation. Please add domain before /api/...
-### you can find the swagger and redocly auto generated API documentation in the following link: project_domain/api_doc_v1/ or project_domain/api_doc_v2/ e.g. http://localhost:8000/api_doc_v1/ or http://localhost:8000/api_doc_v2/
+### you can find the swagger and redocly auto generated API documentation in the following link: project_domain/api_doc_v1/ or project_domain/api_doc_v2/ 
+e.g. http://localhost:8000/api_doc_v1/ or http://localhost:8000/api_doc_v2/
 
 ### 0. **Login**
 
