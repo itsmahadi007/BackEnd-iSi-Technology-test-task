@@ -59,7 +59,13 @@ uvicorn backend.asgi:application --reload --host 0.0.0.0 --port 8000
 ### 1. Build and run the Docker container:
 
 ```bash
-bash scripts/docker_deploy.sh
+docker compose build
+
+docker compose run app python manage.py makemigrations
+docker compose run app python manage.py migrate
+docker compose run app python manage.py collectstatic --noinput
+docker compose run app python manage.py sample
+docker compose up -d
 ```
 
 ## API Documentation. Please add domain before /api/...
